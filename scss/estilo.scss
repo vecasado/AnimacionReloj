@@ -1,0 +1,202 @@
+
+/*letra - Barra_carga_completada - Manecilla_horas - Punto_centro_reloj - Marcas_identificativas_horas_reloj*/
+$turquesa: #009ab7;
+/*Borde_reloj*/
+$tMedio:#0099b79f;
+/*fondo - Manecilla_minutero*/
+$turBajo: rgba(0,154,183,.2);
+/*Fondo_reloj*/
+$blanco: white;
+/*Trasparente*/
+$transparente: rgba(255,0,0,0);
+
+@import url('https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;500&family=Source+Code+Pro:wght@300&display=swap');
+
+body {
+    background-color: $turBajo;
+    height: 600px;
+
+    /* TITULO DE LA PÁGINA */
+    h1 {
+        margin-top: 100px;
+        text-align: center;
+        font-size: 3rem;
+        color: $turquesa;
+        font-family: 'Source Code Pro', monospace;
+            animation: {
+                name: aparicionTitulo;
+                duration: 5s;
+            }
+        }
+    /*Animacion: Aparición del titulo */
+    @keyframes aparicionTitulo {
+        from {
+            filter: blur(6px);
+            letter-spacing: 10px;
+        }
+        to {
+            filter: blur(0px);
+            letter-spacing: 0px;
+            }
+    }
+    /*------------------------------------------------------------------------------*/
+
+    
+    /* RELOJ */
+    .reloj {
+        position:relative;
+        z-index: 3px;
+        background-color: white;
+        width: 125px;
+        height: 125px;
+        border: 5px solid $tMedio;
+        border-radius: 50%;  
+        margin: 100px auto 0 auto;
+        opacity:0;
+        animation: {
+            name: aparece;
+            delay: 7s;
+            duration:1s;
+    
+        }
+        animation-fill-mode: forwards;
+        
+        
+
+        .centro {
+            width: 3.5px;
+            height: 3.5px;
+            border-radius: 50%;  
+            background-color: $turquesa;
+            position: absolute;
+        }  
+
+        
+        /*Aguja de minutos*/
+        @mixin giraManecilla($tiempo) {
+            animation: {
+                name: rotacion;
+                duration: $tiempo;
+                iteration-count: infinite;
+                timing-function: linear;
+                delay: 7s;
+            }    
+        }
+
+        .minuto {
+            position: absolute;
+            background: linear-gradient(to bottom, $turBajo 0%, $turBajo 40%, $transparente 40%, $transparente 100% ); 
+            height: 90px;
+            width: 2px;
+            
+            @include giraManecilla(2s);   
+        }
+       
+         
+        /*Aguja de horas*/
+        .hora {
+            background: linear-gradient(to bottom, $turquesa 0%, $turquesa 40%, $transparente 40%, $transparente);
+            height: 70px;
+            width: 2px;
+            position: absolute;
+            
+            @include giraManecilla(24s);
+        }
+
+
+        /*Animación de agujas*/
+            
+            @keyframes rotacion {
+                from {
+                    
+                  transform: translateX(100) rotate(0deg);
+                }
+                to {
+                  transform: rotate(359deg);
+                }
+              }
+
+        /* Marcadores horas */
+        .x {
+            width: 3px;
+            height: 115px;
+            background: linear-gradient(to bottom, $turquesa 0%, $turquesa 5%, $transparente 5%, $transparente 95%,$turquesa 95%, $turquesa 100% );
+        }
+        .y {
+            height: 3px;
+            width: 115px;
+            position: absolute;
+            background: linear-gradient(to right, $turquesa 0%, $turquesa 5%, $transparente 5%, $transparente 95%,$turquesa 95%, $turquesa 100% );
+        }
+
+
+    }
+            
+          
+        
+    /*------------------------------------------------------------------------------*/
+    /*Barra de carga de página*/
+    
+    .barraCarga {
+        opacity:1;
+        background-color: white;
+        width: 60%;
+        height: 25px;
+        margin: 175px auto 0 auto;
+        border: 4px solid white;
+        border-radius: 15px;
+        animation: {
+            name: desaparece;
+            delay: 7s;
+            duration:0.5s;
+    
+        }
+        animation-fill-mode: forwards;
+        
+    }
+    .barraInterior {
+        background-color: $turquesa;
+        height: 85%;
+        border-radius: 15px;
+        animation: {
+            name: creceBarra;
+            duration: 7s;
+            timing-function:linear;
+        }
+    }
+
+    @keyframes creceBarra {
+        from {
+            width: 0%;
+            
+        }
+        to {
+            width: 100%;
+        }
+    }  
+
+    @keyframes desaparece {
+        from {
+            opacity:1;
+        } to {
+            opacity:0;
+        }
+    }
+    @keyframes aparece {
+        from {
+            opacity:0;
+        } to {
+            opacity:1;
+        }
+    }
+     
+    }
+    
+    
+  
+   
+
+
+
+
+
